@@ -163,7 +163,7 @@ header h1 {
 This selects paragraphs inside the header.
 */
 
-header p {
+header h2 {
 
   /*
   margin values go:
@@ -171,7 +171,7 @@ header p {
   */
 
   margin: 0;
-  font-size: 18px;
+  font-size: 14px;
   font-weight: normal;
   letter-spacing: 2px;
 }
