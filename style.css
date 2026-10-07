@@ -70,7 +70,7 @@ body {
   If it is unavailable, it tries Courier.
   "monospace" is the final generic fallback.
   */
-  font-family: "Courier New", Courier, monospace;
+  font-family: "Plus Jakarta Sans", Courier, monospace;
 
   font-size: 16px;
 
@@ -82,40 +82,12 @@ body {
 }
 
 
-/* ========================================
-   CLICK STARS
-
-   The stars created by cursor.js every time
-   the left mouse button is pressed.
-======================================== */
-
 .click-star {
-
-  /*
-  position: fixed places the star relative to
-  the browser window, so it appears exactly
-  where the mouse was pressed.
-  */
-
   position: fixed;
-
-  /* Let clicks pass through the stars */
   pointer-events: none;
-
-  /* Keep the stars above everything else */
   z-index: 9999;
-
   line-height: 1;
-
-  /* Stop the stars from being selected like text */
   user-select: none;
-
-  /*
-  Black stars with a thin white outline, so they
-  show up on white backgrounds
-  and on dark sketches (like Week 2).
-  */
-
   color: black;
   text-shadow:
     1px 0 0 white,
@@ -198,7 +170,10 @@ header p {
   TOP RIGHT BOTTOM LEFT
   */
 
-  margin: 10px 0 0 0;
+  margin: 0;
+  font-size: 18px;
+  font-weight: normal;
+  letter-spacing: 2px;
 }
 
 
