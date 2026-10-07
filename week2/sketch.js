@@ -9,12 +9,23 @@ let rows, cols;
 let mainColor;    
 let targetColor;   
 
-function setup() {
-  createCanvas(1024, 768);
-  background(0);
+// The sketch is designed for a 1024 x 768 canvas.
+// In the homepage preview it is scaled to fit the small square.
+let designWidth = 1024;
+let designHeight = 768;
+let viewScale = 1;
 
-  centerX = width / 2;
-  centerY = height / 2;
+function setup() {
+  if (window.previewMode) {
+    createCanvas(windowWidth, windowHeight);
+  } else {
+    createCanvas(designWidth, designHeight);
+  }
+  background(0);
+  updateViewScale();
+
+  centerX = designWidth / 2;
+  centerY = designHeight / 2;
   boundingDiameter = 540;
 
   r = 50; 
@@ -23,8 +34,8 @@ function setup() {
   min_d = r * 0.8;   
   max_d = r * 2.2;   
 
-  rows = ceil(height / vDist) * 2.5;
-  cols = ceil(width / r) * 2.5;
+  rows = ceil(designHeight / vDist) * 2.5;
+  cols = ceil(designWidth / r) * 2.5;
   
   mainColor = color(0, 0, 0); 
   targetColor = color(random(255), random(255), random(255)); 
@@ -34,9 +45,6 @@ function draw() {
   fill(0, 10); 
   noStroke();
   rect(0, 0, width, height);
-
-  centerX = width / 2;
-  centerY = height / 2;
 
   if (frameCount % 60 === 0) {
     targetColor = color(random(255), random(255), random(255));
@@ -51,6 +59,12 @@ function draw() {
 
   let breathPulse = sin(oscillationAngle);
   boundingDiameter = map(breathPulse, -1, 1, 550, 580);
+
+  // scale the drawing around the canvas center
+  push();
+  translate(width / 2, height / 2);
+  scale(viewScale);
+  translate(-centerX, -centerY);
 
   push();
   stroke(mainColor); 
@@ -75,6 +89,26 @@ function draw() {
   strokeWeight(0.3); 
   noFill();
   circle(centerX, centerY, boundingDiameter);
+  pop();
+}
+
+
+function updateViewScale() {
+  if (window.previewMode) {
+    // fit the largest circle (580) plus a small margin
+    viewScale = min(width, height) / 620;
+  } else {
+    viewScale = 1;
+  }
+}
+
+
+function windowResized() {
+  if (window.previewMode) {
+    resizeCanvas(windowWidth, windowHeight);
+    background(0);
+    updateViewScale();
+  }
 }
 
 

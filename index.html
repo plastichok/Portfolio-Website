@@ -141,23 +141,15 @@
       <a href="week2/index.html" class="week">
 
         <!--
-        <img> places an image on the webpage.
-
-        src tells the browser WHERE to find the image.
-
-        Here:
-        images/week2.jpg
-
-        means:
-        1. enter the "images" folder
-        2. find the file "week2.jpg"
-
-        alt provides a text description of the image.
-        It is used by screen readers for accessibility
-        and can appear if the image cannot be loaded.
+        Like Week 1, Week 2 uses a live <iframe> preview
+        that runs week2/preview.html instead of an image.
         -->
 
-        <img src="images/week2.jpg" alt="Week 2">
+        <iframe
+          src="week2/preview.html"
+          class="week-preview"
+          tabindex="-1">
+        </iframe>
 
         <h2>Week 2</h2>
 
@@ -169,6 +161,23 @@
       ======================================== -->
 
       <a href="week3/index.html" class="week">
+
+        <!--
+        <img> places an image on the webpage.
+
+        src tells the browser WHERE to find the image.
+
+        Here:
+        images/week3.jpg
+
+        means:
+        1. enter the "images" folder
+        2. find the file "week3.jpg"
+
+        alt provides a text description of the image.
+        It is used by screen readers for accessibility
+        and can appear if the image cannot be loaded.
+        -->
 
         <img src="images/week3.jpg" alt="Week 3">
 
@@ -400,6 +409,12 @@
 
   </footer>
 
+
+  <!--
+  Loads the star burst effect that plays
+  whenever the left mouse button is pressed.
+  -->
+  <script src="cursor.js"></script>
 
 </body>
 

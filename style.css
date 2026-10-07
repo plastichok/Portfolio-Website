@@ -83,6 +83,49 @@ body {
 
 
 /* ========================================
+   CLICK STARS
+
+   The stars created by cursor.js every time
+   the left mouse button is pressed.
+======================================== */
+
+.click-star {
+
+  /*
+  position: fixed places the star relative to
+  the browser window, so it appears exactly
+  where the mouse was pressed.
+  */
+
+  position: fixed;
+
+  /* Let clicks pass through the stars */
+  pointer-events: none;
+
+  /* Keep the stars above everything else */
+  z-index: 9999;
+
+  line-height: 1;
+
+  /* Stop the stars from being selected like text */
+  user-select: none;
+
+  /*
+  Black stars with a thin white outline, so they
+  show up on white backgrounds
+  and on dark sketches (like Week 2).
+  */
+
+  color: black;
+  text-shadow:
+    1px 0 0 white,
+    -1px 0 0 white,
+    0 1px 0 white,
+    0 -1px 0 white;
+}
+
+
+/* ========================================
    LINKS
 
    <a> elements create links in HTML.
