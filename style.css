@@ -690,4 +690,13 @@ In 404.html this class is attached to <body>.
     gap: 15px;
   }
 
+  .meme-image {
+  display: block;
+  width: 100%;
+  max-width: 500px;
+  aspect-ratio: 1 / 1;   /* 正方形；想要橫的可改 4 / 3 或 16 / 9 */
+  object-fit: cover;
+  background: #000;
+}
+
 }
