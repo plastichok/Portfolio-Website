@@ -690,12 +690,44 @@ In 404.html this class is attached to <body>.
     gap: 15px;
   }
 
-  .meme-image {
-    display: block;
-    width: 500px;
-    height: 500px;
-    object-fit: cover;
-    background: #000;
 }
 
+/* ========================================
+   WEEK 6: MEME DATABASE
+
+   The memes are loaded from Supabase by
+   week6/script.js and placed in a grid.
+======================================== */
+
+#meme-database {
+  display: grid;
+
+  /*
+  auto-fill makes as many 250px+ columns as fit,
+  so the grid adapts to any screen size.
+  */
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 25px;
+}
+
+#meme-database .meme {
+  /* Let grid items shrink instead of being pushed wider by their image */
+  min-width: 0;
+}
+
+.meme-image {
+  display: block;
+
+  /* Fit the image to its grid cell, whatever its original size */
+  width: 100%;
+
+  /* Square crop, like the homepage grid */
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+
+  background: black;
+}
+
+.meme-text {
+  margin: 10px 0 0 0;
 }
