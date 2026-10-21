@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <!-- Load the main stylesheet from one folder above -->
+  <link rel="stylesheet" href="../style.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+</head>
+
+<body class="preview-page">
+
+  <!-- One saved meme, swapped for another every few seconds -->
+  <div class="preview-meme">
+    <img id="preview-image" alt="">
+    <p id="preview-text"></p>
+  </div>
+
+  <!-- Load the Supabase library -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script>
+    const supabaseClient = supabase.createClient(
+      "https://uspxokoxzbajirtyhtjv.supabase.co",
+      "sb_publishable_QfPcMD4M9fWHFAL5oHRznA_7g7g-v5Y"
+    );
+
+    const previewImage = document.getElementById("preview-image");
+    const previewText = document.getElementById("preview-text");
+
+    let memes = [];
+
+    async function startPreview() {
+
+      const { data, error } = await supabaseClient
+        .from("memes")
+        .select("*");
+
+      if (error) {
+        console.error("Could not retrieve memes:", error);
+        return;
+      }
+
+      // Skip memes saved with a local address (like 127.0.0.1),
+      // which only work on the computer that saved them
+      memes = data.filter(meme => meme.image_url && meme.image_url.startsWith("https://"));
+
+      showRandomMeme();
+      setInterval(showRandomMeme, 3000);
+    }
+
+    function showRandomMeme() {
+
+      if (memes.length === 0) {
+        return;
+      }
+
+      const meme = memes[Math.floor(Math.random() * memes.length)];
+
+      // Load the image first, then swap it in, so there is no blank flash
+      const nextImage = new Image();
+
+      nextImage.onload = function () {
+        previewImage.src = meme.image_url;
+        previewText.textContent = meme.meme_text;
+      };
+
+      nextImage.src = meme.image_url;
+    }
+
+    startPreview();
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <!-- Load the main stylesheet from one folder above -->
+  <link rel="stylesheet" href="../style.css">
+</head>
+
+<body class="preview-page">
+
+  <!-- A small 3 x 3 grid of saved memes -->
+  <div class="preview-meme-grid" id="preview-grid"></div>
+
+  <!-- Load the Supabase library -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script>
+    const supabaseClient = supabase.createClient(
+      "https://uspxokoxzbajirtyhtjv.supabase.co",
+      "sb_publishable_QfPcMD4M9fWHFAL5oHRznA_7g7g-v5Y"
+    );
+
+    const previewGrid = document.getElementById("preview-grid");
+
+    async function startPreview() {
+
+      const { data, error } = await supabaseClient
+        .from("memes")
+        .select("*");
+
+      if (error) {
+        console.error("Could not retrieve memes:", error);
+        return;
+      }
+
+      // Skip memes saved with a local address (like 127.0.0.1),
+      // which only work on the computer that saved them
+      const memes = data.filter(meme => meme.image_url && meme.image_url.startsWith("https://"));
+
+      // Shuffle, then keep the first 9
+      memes.sort(() => Math.random() - 0.5);
+
+      memes.slice(0, 9).forEach(meme => {
+        const image = document.createElement("img");
+        image.src = meme.image_url;
+        image.alt = "";
+        previewGrid.appendChild(image);
+      });
+    }
+
+    startPreview();
+  </script>
+
+</body>
+
+</html>
